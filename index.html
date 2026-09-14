@@ -3,862 +3,1096 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MARVELS HC | مرکز اطلاع‌رسانی و پشتیبانی</title>
+<meta name="theme-color" content="#0f0c29">
+<title>MARVELS HC | پشتیبانی و مقالات</title>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+  /* ===== RESET ===== */
+  *{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,'Segoe UI',sans-serif}
+  html{scroll-behavior:smooth}
+
+  /* ===== BACKGROUND گرادیانی متحرک ===== */
+  body{
+    background:#0a0820;
+    color:#e0e0e8;
+    font-size:15px;
+    line-height:1.8;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
   }
 
-  body {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: #eaeaea;
-    min-height: 100vh;
-    line-height: 1.8;
-    overflow-x: hidden;
+  /* گرادیان نورانی پس‌زمینه */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,215,0,0.12), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(147,51,234,0.15), transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(59,130,246,0.08), transparent 60%);
+    z-index:-2;
+    animation:bgMove 20s ease-in-out infinite alternate;
   }
 
-  /* ====== ذرات شناور پس‌زمینه ====== */
-  .particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
+  @keyframes bgMove{
+    0%{transform:scale(1) translate(0,0)}
+    100%{transform:scale(1.1) translate(-20px,-20px)}
   }
 
-  .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #ffd700;
-    border-radius: 50%;
-    opacity: 0.6;
-    box-shadow: 0 0 10px #ffd700;
-    animation: floatUp linear infinite;
+  /* ذرات درخشان */
+  .particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+    overflow:hidden;
+  }
+  .particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:#ffd700;
+    border-radius:50%;
+    box-shadow:0 0 8px #ffd700,0 0 12px rgba(255,215,0,0.5);
+    animation:floatUp linear infinite;
+    opacity:0;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(100vh) scale(0);opacity:0}
+    15%{opacity:0.7}
+    85%{opacity:0.7}
+    100%{transform:translateY(-50px) scale(1);opacity:0}
   }
 
-  @keyframes floatUp {
-    0% {
-      transform: translateY(100vh) scale(0);
-      opacity: 0;
-    }
-    10% { opacity: 0.8; }
-    90% { opacity: 0.8; }
-    100% {
-      transform: translateY(-100px) scale(1.5);
-      opacity: 0;
-    }
+  /* ===== هدر شیشه‌ای ===== */
+  header{
+    background:rgba(20,18,50,0.7);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,215,0,0.3);
+    padding:14px 20px;
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  }
+  .header-inner{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .logo{
+    font-size:1.3rem;
+    font-weight:bold;
+    background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    letter-spacing:1px;
+    animation:shine 3s linear infinite;
+  }
+  @keyframes shine{
+    0%{background-position:0% center}
+    100%{background-position:200% center}
+  }
+  nav{display:flex;flex-wrap:wrap;gap:5px}
+  nav a{
+    color:#c0c0d0;
+    text-decoration:none;
+    padding:6px 14px;
+    border-radius:8px;
+    font-size:0.9rem;
+    transition:0.25s;
+    border:1px solid transparent;
+  }
+  nav a:hover{
+    color:#ffd700;
+    background:rgba(255,215,0,0.08);
+    border-color:rgba(255,215,0,0.3);
   }
 
-  /* ====== هدر ====== */
-  header {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 2px solid #ffd700;
+  /* ===== Hero ===== */
+  .hero{
+    text-align:center;
+    padding:70px 20px 50px;
+    position:relative;
+  }
+  .hero h1{
+    font-size:3rem;
+    font-weight:900;
+    background:linear-gradient(135deg,#ffd700 0%,#ffed4a 30%,#ff8c00 60%,#ffd700 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:15px;
+    letter-spacing:3px;
+    animation:shine 3s linear infinite;
+    filter:drop-shadow(0 0 20px rgba(255,215,0,0.5));
+  }
+  .hero p{
+    color:#a8a8c0;
+    max-width:600px;
+    margin:0 auto 25px;
+    font-size:1.05rem;
   }
 
-  .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ffd700;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  /* ===== دکمه ===== */
+  .btn{
+    display:inline-block;
+    background:linear-gradient(135deg,#ffd700,#ff8c00);
+    color:#14122b;
+    padding:13px 32px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:0.95rem;
+    border:none;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 8px 25px rgba(255,215,0,0.35);
+    position:relative;
+    overflow:hidden;
+  }
+  .btn::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.5),transparent);
+    transform:translateX(-100%);
+    transition:0.6s;
+  }
+  .btn:hover::before{transform:translateX(100%)}
+  .btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 35px rgba(255,215,0,0.55);
   }
 
-  nav a {
-    color: #eaeaea;
-    text-decoration: none;
-    margin-right: 25px;
-    font-weight: 500;
-    transition: 0.3s;
-    padding: 5px 10px;
-    border-radius: 8px;
+  /* ===== کانتینر ===== */
+  .container{max-width:1100px;margin:0 auto;padding:0 20px}
+  section{padding:50px 0 20px}
+
+  section h2{
+    font-size:1.7rem;
+    color:#ffd700;
+    margin-bottom:8px;
+    text-align:center;
+    text-shadow:0 0 20px rgba(255,215,0,0.4);
+  }
+  section .subtitle{
+    text-align:center;
+    color:#8888a0;
+    margin-bottom:32px;
+    font-size:0.9rem;
   }
 
-  nav a:hover {
-    color: #ffd700;
-    background: rgba(255, 215, 0, 0.1);
+  /* ===== کارت‌های آمار شیشه‌ای ===== */
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px;
+    margin-top:20px;
+  }
+  .stat-card{
+    background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02));
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,215,0,0.25);
+    border-radius:18px;
+    padding:26px 18px;
+    text-align:center;
+    transition:0.4s cubic-bezier(0.4,0,0.2,1);
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(30px);
+    animation:fadeInUp 0.7s ease forwards;
+  }
+  .stat-card:nth-child(1){animation-delay:0.1s}
+  .stat-card:nth-child(2){animation-delay:0.2s}
+  .stat-card:nth-child(3){animation-delay:0.3s}
+  .stat-card:nth-child(4){animation-delay:0.4s}
+
+  @keyframes fadeInUp{
+    to{opacity:1;transform:translateY(0)}
   }
 
-  /* ====== بخش قهرمان (Hero) ====== */
-  .hero {
-    text-align: center;
-    padding: 80px 20px 40px;
-    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15), transparent 70%);
-    position: relative;
-    z-index: 1;
+  /* درخشش شیشه‌ای */
+  .stat-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,215,0,0.8),transparent);
+    opacity:0;
+    transition:0.4s;
+  }
+  .stat-card:hover::before{opacity:1}
+
+  .stat-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(255,215,0,0.6);
+    box-shadow:
+      0 20px 40px rgba(0,0,0,0.4),
+      0 0 30px rgba(255,215,0,0.15),
+      inset 0 0 20px rgba(255,215,0,0.05);
+    background:linear-gradient(135deg,rgba(255,215,0,0.12),rgba(255,215,0,0.03));
   }
 
-  .hero h1 {
-    font-size: 3rem;
-    color: #ffd700;
-    margin-bottom: 15px;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  .stat-icon{
+    font-size:2rem;
+    display:block;
+    margin-bottom:10px;
+    filter:drop-shadow(0 0 10px rgba(255,215,0,0.6));
+    transition:0.3s;
+  }
+  .stat-card:hover .stat-icon{
+    transform:scale(1.15) rotate(-5deg);
+    filter:drop-shadow(0 0 18px rgba(255,215,0,0.9));
+  }
+  .stat-value{
+    font-size:2rem;
+    font-weight:900;
+    background:linear-gradient(135deg,#ffd700,#ffed4a,#ff8c00);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    display:block;
+    line-height:1.2;
+    font-variant-numeric:tabular-nums;
+    filter:drop-shadow(0 0 10px rgba(255,215,0,0.4));
+  }
+  .stat-label{
+    color:#a0a0b8;
+    font-size:0.85rem;
+    margin-top:6px;
+    display:block;
+  }
+  .live-badge{
+    display:inline-block;
+    background:rgba(74,222,128,0.15);
+    color:#4ade80;
+    padding:3px 12px;
+    border-radius:20px;
+    font-size:0.7rem;
+    margin-bottom:8px;
+    border:1px solid rgba(74,222,128,0.4);
+    box-shadow:0 0 15px rgba(74,222,128,0.3);
+    animation:livePulse 2s infinite;
+  }
+  @keyframes livePulse{
+    0%,100%{box-shadow:0 0 15px rgba(74,222,128,0.3)}
+    50%{box-shadow:0 0 25px rgba(74,222,128,0.6)}
   }
 
-  .hero p {
-    font-size: 1.2rem;
-    color: #b8b8d1;
-    max-width: 700px;
-    margin: 0 auto 30px;
+  /* نوار پیشرفت شیشه‌ای */
+  .stat-bar{
+    width:100%;
+    height:5px;
+    background:rgba(255,255,255,0.08);
+    border-radius:10px;
+    margin-top:14px;
+    overflow:hidden;
+    position:relative;
+  }
+  .stat-bar-fill{
+    height:100%;
+    background:linear-gradient(90deg,#ffd700,#ffed4a,#ff8c00);
+    border-radius:10px;
+    width:0%;
+    transition:width 1.5s ease;
+    box-shadow:0 0 12px rgba(255,215,0,0.8);
+    position:relative;
+  }
+  .stat-bar-fill::after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    width:20px;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.8));
+    animation:shimmer 1.8s infinite;
+  }
+  @keyframes shimmer{
+    0%{opacity:0.2}
+    50%{opacity:1}
+    100%{opacity:0.2}
   }
 
-  .btn {
-    display: inline-block;
-    background: linear-gradient(45deg, #ffd700, #ff8c00);
-    color: #1a1a2e;
-    padding: 14px 35px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-    transition: 0.3s;
-    border: none;
-    cursor: pointer;
+  /* ===== کارت‌های مقاله شیشه‌ای ===== */
+  .articles-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+  .article-card{
+    background:linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02));
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,215,0,0.2);
+    border-radius:16px;
+    padding:24px;
+    transition:0.4s;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+  }
+  .article-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    width:4px;
+    height:100%;
+    background:linear-gradient(180deg,#ffd700,#ff8c00);
+    opacity:0.7;
+    transition:0.4s;
+  }
+  .article-card:hover::before{width:6px;opacity:1}
+  .article-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(255,215,0,0.6);
+    box-shadow:
+      0 20px 40px rgba(0,0,0,0.4),
+      0 0 30px rgba(255,215,0,0.2);
+  }
+  .article-tag{
+    display:inline-block;
+    background:linear-gradient(135deg,rgba(255,215,0,0.25),rgba(255,140,0,0.15));
+    color:#ffd700;
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:0.75rem;
+    margin-bottom:12px;
+    align-self:flex-start;
+    border:1px solid rgba(255,215,0,0.3);
+    font-weight:bold;
+  }
+  .article-card h3{
+    color:#fff;
+    font-size:1.1rem;
+    margin-bottom:10px;
+    line-height:1.5;
+  }
+  .article-card p{
+    color:#a8a8c0;
+    font-size:0.88rem;
+    flex:1;
+    margin-bottom:15px;
+  }
+  .article-meta{
+    color:#777790;
+    font-size:0.78rem;
+    border-top:1px solid rgba(255,215,0,0.15);
+    padding-top:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .read-more{
+    color:#ffd700;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:0.85rem;
+    transition:0.2s;
+  }
+  .read-more:hover{
+    text-shadow:0 0 10px rgba(255,215,0,0.8);
+    transform:translateX(-3px);
   }
 
-  .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.7);
+  /* ===== محتوای کامل مقاله ===== */
+  .article-full{
+    display:none;
+    background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02));
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,215,0,0.4);
+    border-radius:18px;
+    padding:32px;
+    margin-top:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+    animation:fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn{
+    from{opacity:0;transform:translateY(15px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .article-full.show{display:block}
+  .article-full h3{
+    color:#ffd700;
+    font-size:1.5rem;
+    margin-bottom:18px;
+    text-shadow:0 0 15px rgba(255,215,0,0.4);
+  }
+  .article-full h4{
+    color:#ffd700;
+    font-size:1.05rem;
+    margin:22px 0 8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .article-full h4::before{
+    content:'◆';
+    color:#ff8c00;
+    font-size:0.7rem;
+  }
+  .article-full p{
+    color:#c8c8d8;
+    margin-bottom:12px;
+    font-size:0.93rem;
+  }
+  .article-full ul{
+    margin:10px 25px 15px;
+    color:#c8c8d8;
+    font-size:0.93rem;
+  }
+  .article-full li{
+    margin-bottom:8px;
+    padding-right:6px;
+  }
+  .article-full li::marker{color:#ffd700}
+  .article-full strong{color:#ffd700}
+  .back-btn{
+    background:rgba(255,215,0,0.08);
+    border:1px solid rgba(255,215,0,0.4);
+    color:#ffd700;
+    padding:8px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:0.85rem;
+    margin-bottom:18px;
+    transition:0.3s;
+    font-weight:bold;
+  }
+  .back-btn:hover{
+    background:#ffd700;
+    color:#14122b;
+    box-shadow:0 8px 20px rgba(255,215,0,0.4);
   }
 
-  /* ============================================
-     ⭐ بخش آمار گرافیکی زنده ⭐
-     ============================================ */
-  .stats-section {
-    max-width: 1200px;
-    margin: 40px auto 80px;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
+  /* ===== راهنمای بازی ===== */
+  .guide-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:18px;
+  }
+  .guide-step{
+    background:linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02));
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,215,0,0.2);
+    border-radius:16px;
+    padding:24px;
+    transition:0.35s;
+    position:relative;
+    overflow:hidden;
+  }
+  .guide-step::after{
+    content:'';
+    position:absolute;
+    top:-50%;
+    right:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,rgba(255,215,0,0.15),transparent 40%);
+    opacity:0;
+    transition:0.5s;
+    pointer-events:none;
+  }
+  .guide-step:hover::after{opacity:1}
+  .guide-step:hover{
+    transform:translateY(-6px);
+    border-color:rgba(255,215,0,0.6);
+    box-shadow:
+      0 15px 35px rgba(0,0,0,0.4),
+      0 0 25px rgba(255,215,0,0.15);
+  }
+  .guide-num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#ffd700,#ff8c00);
+    color:#14122b;
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    font-weight:900;
+    margin-bottom:12px;
+    font-size:1.1rem;
+    box-shadow:0 5px 15px rgba(255,215,0,0.5);
+    position:relative;
+    z-index:1;
+  }
+  .guide-step h4{
+    color:#fff;
+    margin-bottom:8px;
+    font-size:1.05rem;
+    position:relative;
+    z-index:1;
+  }
+  .guide-step p{
+    color:#a8a8c0;
+    font-size:0.88rem;
+    position:relative;
+    z-index:1;
   }
 
-  .stats-section h2 {
-    font-size: 2rem;
-    color: #ffd700;
-    margin-bottom: 40px;
-    text-align: center;
-    position: relative;
-    padding-bottom: 15px;
+  /* ===== FAQ شیشه‌ای ===== */
+  .faq-item{
+    background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,215,0,0.2);
+    border-radius:14px;
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:0.35s;
+  }
+  .faq-item:hover{
+    border-color:rgba(255,215,0,0.5);
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+  }
+  .faq-item.active{
+    border-color:rgba(255,215,0,0.6);
+    box-shadow:0 10px 30px rgba(255,215,0,0.15);
+  }
+  .faq-q{
+    padding:18px 22px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#fff;
+    font-weight:bold;
+    font-size:0.95rem;
+    user-select:none;
+    transition:0.3s;
+  }
+  .faq-q:hover{
+    background:rgba(255,215,0,0.05);
+  }
+  .faq-q .icon{
+    color:#ffd700;
+    font-size:1.4rem;
+    transition:0.3s;
+    font-weight:300;
+    text-shadow:0 0 10px rgba(255,215,0,0.6);
+  }
+  .faq-item.active .faq-q .icon{
+    transform:rotate(45deg);
+    color:#ff8c00;
+  }
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    padding:0 22px;
+    color:#b0b0c5;
+    font-size:0.9rem;
+    transition:max-height 0.35s ease,padding 0.3s ease;
+  }
+  .faq-item.active .faq-a{
+    max-height:400px;
+    padding:0 22px 18px;
   }
 
-  .stats-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  /* ===== فوتر ===== */
+  footer{
+    background:rgba(20,18,50,0.7);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-top:1px solid rgba(255,215,0,0.3);
+    padding:32px 20px;
+    text-align:center;
+    margin-top:70px;
+    box-shadow:0 -4px 20px rgba(0,0,0,0.3);
+  }
+  footer p{
+    color:#8888a0;
+    font-size:0.85rem;
+    margin-bottom:5px;
+  }
+  footer .credit{
+    background:linear-gradient(135deg,#ffd700,#ff8c00);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-weight:bold;
   }
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
+  /* ===== ریسپانسیو ===== */
+  @media(max-width:600px){
+    .hero{padding:50px 15px 35px}
+    .hero h1{font-size:2rem;letter-spacing:2px}
+    .hero p{font-size:0.92rem}
+    section h2{font-size:1.3rem}
+    .stat-value{font-size:1.5rem}
+    .stat-icon{font-size:1.6rem}
+    nav a{font-size:0.78rem;padding:5px 9px}
+    .logo{font-size:1.05rem}
+    .article-full{padding:22px}
+    .article-full h3{font-size:1.2rem}
+    .btn{padding:11px 24px;font-size:0.88rem}
   }
 
-  .stat-card {
-    background: linear-gradient(145deg, rgba(255, 215, 0, 0.08), rgba(255, 140, 0, 0.03));
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 20px;
-    padding: 30px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: 0.4s;
-    cursor: pointer;
-    animation: fadeInUp 0.8s ease both;
-  }
-
-  .stat-card:nth-child(1) { animation-delay: 0.1s; }
-  .stat-card:nth-child(2) { animation-delay: 0.2s; }
-  .stat-card:nth-child(3) { animation-delay: 0.3s; }
-  .stat-card:nth-child(4) { animation-delay: 0.4s; }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* افکت درخشش متحرک */
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(
-      transparent,
-      rgba(255, 215, 0, 0.4),
-      transparent 30%
-    );
-    animation: rotate 4s linear infinite;
-    opacity: 0;
-    transition: 0.4s;
-  }
-
-  .stat-card:hover::before {
-    opacity: 1;
-  }
-
-  @keyframes rotate {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .stat-card::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: linear-gradient(145deg, #1a1a2e, #24243e);
-    border-radius: 18px;
-    z-index: 0;
-  }
-
-  .stat-card > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .stat-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: #ffd700;
-    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
-  }
-
-  .stat-icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
-    display: inline-block;
-    transition: 0.4s;
-  }
-
-  .stat-card:hover .stat-icon {
-    transform: scale(1.2) rotate(5deg);
-  }
-
-  .stat-value {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #ffd700;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-    letter-spacing: 1px;
-    display: block;
-    line-height: 1.2;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .stat-label {
-    color: #b8b8d1;
-    font-size: 0.95rem;
-    margin-top: 8px;
-    display: block;
-    font-weight: 500;
-  }
-
-  /* نوار پیشرفت */
-  .stat-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    margin-top: 15px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .stat-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #ffd700, #ff8c00);
-    border-radius: 10px;
-    width: 0%;
-    transition: width 1.5s ease;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-    position: relative;
-  }
-
-  .stat-bar-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.6);
-    filter: blur(5px);
-    animation: shimmer 1.5s infinite;
-  }
-
-  @keyframes shimmer {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
-
-  /* نشانگر زنده (Live) */
-  .live-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(0, 255, 100, 0.15);
-    color: #00ff66;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    border: 1px solid rgba(0, 255, 100, 0.4);
-  }
-
-  .live-dot {
-    width: 8px;
-    height: 8px;
-    background: #00ff66;
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-    box-shadow: 0 0 10px #00ff66;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.5);
-      opacity: 0.5;
-    }
-  }
-
-  /* بخش‌های اصلی */
-  section.content-section {
-    max-width: 1000px;
-    margin: 60px auto;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  section.content-section h2 {
-    font-size: 2rem;
-    color: #ffd700;
-    margin-bottom: 30px;
-    text-align: center;
-    position: relative;
-    padding-bottom: 15px;
-  }
-
-  section.content-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #ffd700, transparent);
-  }
-
-  /* کارت اخبار */
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-  }
-
-  .news-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 15px;
-    padding: 25px;
-    transition: 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .news-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5px;
-    height: 100%;
-    background: linear-gradient(180deg, #ffd700, #ff8c00);
-  }
-
-  .news-card:hover {
-    transform: translateY(-5px);
-    border-color: #ffd700;
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-  }
-
-  .news-card .tag {
-    display: inline-block;
-    background: rgba(255, 215, 0, 0.15);
-    color: #ffd700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    margin-bottom: 12px;
-  }
-
-  .news-card h3 {
-    color: #fff;
-    margin-bottom: 10px;
-    font-size: 1.3rem;
-  }
-
-  .news-card p {
-    color: #b8b8d1;
-    font-size: 0.95rem;
-  }
-
-  .news-card .date {
-    display: block;
-    margin-top: 15px;
-    color: #888;
-    font-size: 0.85rem;
-  }
-
-  /* سوالات متداول */
-  .faq-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 12px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    transition: 0.3s;
-  }
-
-  .faq-item:hover {
-    border-color: #ffd700;
-  }
-
-  .faq-question {
-    padding: 20px 25px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    color: #fff;
-    font-size: 1.05rem;
-    user-select: none;
-    transition: 0.3s;
-  }
-
-  .faq-question:hover {
-    background: rgba(255, 215, 0, 0.08);
-  }
-
-  .faq-question .icon {
-    color: #ffd700;
-    font-size: 1.5rem;
-    transition: 0.3s;
-    font-weight: bold;
-  }
-
-  .faq-item.active .faq-question .icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s ease;
-    padding: 0 25px;
-    color: #b8b8d1;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-    padding: 0 25px 20px;
-  }
-
-  /* فوتر */
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    background: rgba(0, 0, 0, 0.5);
-    border-top: 2px solid #ffd700;
-    margin-top: 80px;
-    position: relative;
-    z-index: 1;
-  }
-
-  footer p {
-    color: #b8b8d1;
-    margin-bottom: 8px;
-  }
-
-  footer .credit {
-    color: #ffd700;
-    font-weight: bold;
-  }
-
-  /* ریسپانسیو */
-  @media (max-width: 768px) {
-    header {
-      flex-direction: column;
-      gap: 15px;
-      padding: 15px 20px;
-    }
-
-    nav a {
-      margin: 0 10px;
-      font-size: 0.9rem;
-    }
-
-    .hero h1 { font-size: 2rem; }
-    .hero p { font-size: 1rem; }
-
-    .stat-value { font-size: 2rem; }
-    .stat-icon { font-size: 2rem; }
-
-    section.content-section h2,
-    .stats-section h2 { font-size: 1.5rem; }
+  /* کاهش انیمیشن برای دستگاه‌های ضعیف */
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
   }
 </style>
 </head>
 <body>
 
-<!-- ذرات شناور پس‌زمینه -->
+<!-- ذرات درخشان -->
 <div class="particles" id="particles"></div>
 
-<!-- هدر -->
+<!-- ===== هدر ===== -->
 <header>
-  <div class="logo">MARVELS·HC</div>
-  <nav>
-    <a href="#stats">آمار</a>
-    <a href="#news">اخبار</a>
-    <a href="#faq">سوالات متداول</a>
-    <a href="#guide">راهنما</a>
-  </nav>
+  <div class="header-inner">
+    <div class="logo">MARVELS·HC</div>
+    <nav>
+      <a href="#stats">آمار</a>
+      <a href="#articles">مقالات</a>
+      <a href="#guide">راهنما</a>
+      <a href="#faq">سوالات</a>
+    </nav>
+  </div>
 </header>
 
-<!-- بخش قهرمان -->
+<!-- ===== Hero ===== -->
 <div class="hero">
   <h1>MARVELS HC</h1>
-  <p>مرکز اطلاع‌رسانی، اخبار و پشتیبانی رسمی بازی. آخرین به‌روزرسانی‌ها، راهنماها و پاسخ سوالات پرتکرار شما اینجاست.</p>
-  <a href="#stats" class="btn">🚀 مشاهده آمار زنده</a>
+  <p>مرکز پشتیبانی رسمی بازی — راهنماها، مقالات تخصصی و پاسخ سوالات پرتکرار شما</p>
+  <a href="#guide" class="btn">📖 شروع راهنما</a>
 </div>
 
-<!-- ============================================
-     ⭐ بخش آمار گرافیکی زنده ⭐
-     ============================================ -->
-<section class="stats-section" id="stats">
-  <h2>📊 آمار زنده بازی</h2>
+<!-- ===== آمار ===== -->
+<section id="stats">
+  <div class="container">
+    <h2>📊 آمار بازی</h2>
+    <p class="subtitle">آمار به‌صورت زنده به‌روزرسانی می‌شود</p>
 
-  <div class="stats-grid">
+    <div class="stats-grid">
 
-    <!-- آمار ۱: سابقه -->
-    <div class="stat-card">
-      <span class="stat-icon">🏆</span>
-      <span class="stat-value" data-target="1" data-suffix="+ سال">0</span>
-      <span class="stat-label">سابقه فعالیت</span>
-      <div class="stat-bar">
-        <div class="stat-bar-fill" data-width="85%"></div>
+      <div class="stat-card">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-value" data-target="1" data-suffix="+">0</span>
+        <span class="stat-label">سال فعالیت</span>
+        <div class="stat-bar"><div class="stat-bar-fill" data-width="85%"></div></div>
       </div>
+
+      <div class="stat-card">
+        <span class="live-badge">● LIVE</span>
+        <span class="stat-icon">👥</span>
+        <span class="stat-value" id="onlinePlayers">1K</span>
+        <span class="stat-label">بازیکن آنلاین</span>
+        <div class="stat-bar"><div class="stat-bar-fill" id="onlineBar" style="width:70%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-icon">🎮</span>
+        <span class="stat-value" data-target="1">0</span>
+        <span class="stat-label">بازی فعال</span>
+        <div class="stat-bar"><div class="stat-bar-fill" data-width="100%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-icon">⚔️</span>
+        <span class="stat-value" id="totalStrikes">0</span>
+        <span class="stat-label">مجموع ضربات</span>
+        <div class="stat-bar"><div class="stat-bar-fill" id="strikesBar" style="width:60%"></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== مقالات ===== -->
+<section id="articles">
+  <div class="container">
+    <h2>📚 آخرین مقالات</h2>
+    <p class="subtitle">راهنماها و تحلیل‌های تخصصی درباره بازی</p>
+
+    <div class="articles-grid" id="articlesList">
+
+      <div class="article-card">
+        <span class="article-tag">مینی‌گیم</span>
+        <h3>🎯 مینی‌گیم «Reflex Rush» — چطور در ۳۰ ثانیه رکورد بزنیم؟</h3>
+        <p>همه چیز درباره سریع‌ترین مینی‌گیم Marvels HC؛ از زمان‌بندی ضربه‌ها تا نحوه تشخیص الگوهای حرکتی.</p>
+        <div class="article-meta">
+          <span>📅 ۵ دقیقه مطالعه</span>
+          <a href="#" class="read-more" data-article="art1">خواندن →</a>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <span class="article-tag">مکانیک بازی</span>
+        <h3>⚡ راهنمای کامل مکانیک Hard Comeback در Marvels HC</h3>
+        <p>سیستم Hard Comeback چطور کار می‌کند؟ چطور از کمبوهای بلند و ضربه‌های دقیق، حداکثر پاداش را بگیریم.</p>
+        <div class="article-meta">
+          <span>📅 ۷ دقیقه مطالعه</span>
+          <a href="#" class="read-more" data-article="art2">خواندن →</a>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <span class="article-tag">استراتژی</span>
+        <h3>💰 بهترین روش‌های کسب Combat Credits در ۲۰۲۵</h3>
+        <p>از ضربه‌های زنجیره‌ای تا مینی‌گیم‌ها؛ هر روشی که می‌توانید با آن سریع‌تر قهرمان بخرید.</p>
+        <div class="article-meta">
+          <span>📅 ۴ دقیقه مطالعه</span>
+          <a href="#" class="read-more" data-article="art3">خواندن →</a>
+        </div>
+      </div>
+
     </div>
 
-    <!-- آمار ۲: بازیکنان آنلاین (پویا) -->
-    <div class="stat-card">
-      <span class="live-badge">
-        <span class="live-dot"></span>
-        LIVE
-      </span>
-      <span class="stat-icon">👥</span>
-      <span class="stat-value" id="onlinePlayers">1K</span>
-      <span class="stat-label">بازیکنان آنلاین</span>
-      <div class="stat-bar">
-        <div class="stat-bar-fill" id="onlineBar" style="width: 70%;"></div>
-      </div>
+    <!-- مقاله ۱ -->
+    <div class="article-full" id="art1">
+      <button class="back-btn" onclick="closeArticle()">← بازگشت به مقالات</button>
+      <h3>🎯 مینی‌گیم Reflex Rush — راهنمای کامل</h3>
+
+      <p>مینی‌گیم <strong>Reflex Rush</strong> یکی از جذاب‌ترین بخش‌های Marvels HC است که در نسخه v4.3 اضافه شد. در این مینی‌گیم، شما باید در مدت ۳۰ ثانیه، بیشترین تعداد ضربه‌ی دقیق را روی اهداف متحرک ثبت کنید.</p>
+
+      <h4>مکانیک اصلی بازی</h4>
+      <p>در صفحه، دایره‌های طلایی به‌صورت تصادفی ظاهر می‌شوند و پس از چند لحظه ناپدید می‌شوند. شما باید:</p>
+      <ul>
+        <li>سریع‌ترین واکنش را داشته باشید و روی دایره ضربه بزنید</li>
+        <li>از ضربه زدن به دایره‌های قرمز خودداری کنید (امتیاز منفی دارد)</li>
+        <li>کمبو را حفظ کنید تا ضریب امتیاز افزایش یابد</li>
+      </ul>
+
+      <h4>نکات کلیدی برای رکورد زدن</h4>
+      <ul>
+        <li><strong>مرکز صفحه را ببینید:</strong> اهداف معمولاً در نیمه‌ی بالایی صفحه ظاهر می‌شوند.</li>
+        <li><strong>ضربه‌های زنجیره‌ای:</strong> هر ۵ ضربه پیوسته، ضریب امتیاز شما را ۱.۵ برابر می‌کند.</li>
+        <li><strong>دایره‌های طلایی درشت:</strong> امتیاز بیشتری از دایره‌های کوچک دارند.</li>
+        <li><strong>نفس عمیق:</strong> در ثانیه‌های آخر عجله نکنید — یک اشتباه می‌تواند کل کمبو را از بین ببرد.</li>
+      </ul>
+
+      <h4>جدول امتیازات</h4>
+      <ul>
+        <li>۰ تا ۵۰۰ امتیاز: تازه‌کار</li>
+        <li>۵۰۰ تا ۱۵۰۰ امتیاز: ماهر</li>
+        <li>۱۵۰۰ تا ۳۰۰۰ امتیاز: حرفه‌ای</li>
+        <li>بیش از ۳۰۰۰ امتیاز: افسانه‌ای 🔥</li>
+      </ul>
+
+      <p>با تمرین روزانه‌ی ۱۰ دقیقه‌ای، در کمتر از یک هفته می‌توانید به سطح «حرفه‌ای» برسید. همچنین رکورد بالای ۲۵۰۰ امتیاز، پاداش ویژه <strong>Combat Credits</strong> به شما می‌دهد.</p>
     </div>
 
-    <!-- آمار ۳: بازی‌های فعال -->
-    <div class="stat-card">
-      <span class="stat-icon">🎮</span>
-      <span class="stat-value" data-target="1">0</span>
-      <span class="stat-label">بازی فعال</span>
-      <div class="stat-bar">
-        <div class="stat-bar-fill" data-width="100%"></div>
-      </div>
+    <!-- مقاله ۲ -->
+    <div class="article-full" id="art2">
+      <button class="back-btn" onclick="closeArticle()">← بازگشت به مقالات</button>
+      <h3>⚡ راهنمای کامل مکانیک Hard Comeback در Marvels HC</h3>
+
+      <p>یکی از جذاب‌ترین و در عین حال چالش‌برانگیزترین مکانیک‌های Marvels HC، سیستم <strong>Hard Comeback</strong> است. در این مقاله به‌طور کامل توضیح می‌دهیم که این مکانیک چطور کار می‌کند و چطور می‌توانید از آن به نفع خودتان استفاده کنید.</p>
+
+      <h4>Hard Comeback چیست؟</h4>
+      <p>Hard Comeback یک مکانیک پویا است که وقتی شما در وضعیت <em>پایین‌تر از حریف</em> قرار دارید، فعال می‌شود. به‌جای اینکه بازی برای شما ساده‌تر شود، بازی شما را به چالش می‌کشد تا با مهارت خودتان برگردید.</p>
+
+      <h4>شرایط فعال شدن</h4>
+      <ul>
+        <li>کمبوی شما به زیر ۳۰٪ برسد</li>
+        <li>امتیاز شما کمتر از ۵۰٪ امتیاز حریف باشد</li>
+        <li>در ۱۰ ثانیه‌ی گذشته هیچ ضربه‌ی دقیقی ثبت نکرده باشید</li>
+      </ul>
+
+      <h4>مکانیک دقیق</h4>
+      <p>وقتی Hard Comeback فعال می‌شود:</p>
+      <ul>
+        <li>نوار کمبو با رنگ قرمز چشمک می‌زند</li>
+        <li>ضربه‌های شما ۲ برابر امتیاز می‌دهند</li>
+        <li>اما زمان واکنش مجاز برای هر ضربه کمتر می‌شود</li>
+        <li>در صورت باخت، جریمه‌ی سنگین‌تری می‌گیرید</li>
+      </ul>
+
+      <h4>استراتژی برنده شدن</h4>
+      <ul>
+        <li><strong>آرام باشید:</strong> هیجان باعث می‌شود زودتر ضربه بزنید و کمبو را از دست بدهید.</li>
+        <li><strong>روی ۳ ضربه‌ی اول تمرکز کنید:</strong> اگر بتوانید کمبو را به بالای ۵۰٪ برسانید، Hard Comeback غیرفعال می‌شود.</li>
+        <li><strong>از مینی‌گیم‌ها کمک بگیرید:</strong> در حین بازی، اگر دکمه‌ی «Mini Game» ظاهر شد، سریع وارد شوید — پاداشش می‌تواند شما را نجات دهد.</li>
+        <li><strong>قیف‌های طلایی را هدف بگیرید:</strong> این اهداف در حالت Hard Comeback امتیاز ۳ برابر می‌دهند.</li>
+      </ul>
+
+      <h4>پاداش‌های Hard Comeback</h4>
+      <p>اگر موفق شوید در حالت Hard Comeback حریف را شکست دهید:</p>
+      <ul>
+        <li>۳ برابر Combat Credits</li>
+        <li>یک <strong>قهرمان تصادفی</strong> به‌عنوان جایزه</li>
+        <li>باز شدن نشان ویژه «Comeback King» 👑</li>
+      </ul>
+
+      <p>به یاد داشته باشید: <strong>Hard Comeback فرصت شماست، نه تهدید.</strong> اگر با ذهن آرام و تمرکز کامل واردش شوید، می‌توانید هر باختی را به پیروزی تبدیل کنید.</p>
     </div>
 
-    <!-- آمار ۴: مجموع ضربات -->
-    <div class="stat-card">
-      <span class="stat-icon">⚔️</span>
-      <span class="stat-value" id="totalStrikes">0</span>
-      <span class="stat-label">مجموع ضربات</span>
-      <div class="stat-bar">
-        <div class="stat-bar-fill" id="strikesBar" style="width: 60%;"></div>
-      </div>
+    <!-- مقاله ۳ -->
+    <div class="article-full" id="art3">
+      <button class="back-btn" onclick="closeArticle()">← بازگشت به مقالات</button>
+      <h3>💰 بهترین روش‌های کسب Combat Credits در ۲۰۲۵</h3>
+
+      <p>Combat Credits واحد پول اصلی Marvels HC است و برای خرید قهرمانان، ارتقاء و آیتم‌های ویژه استفاده می‌شود. در این مقاله، بهترین روش‌های کسب سریع آن را بررسی می‌کنیم.</p>
+
+      <h4>۱. ضربه‌های زنجیره‌ای (Strike Combo)</h4>
+      <p>هر ضربه <strong>+1 Credit</strong> می‌دهد. اما اگر کمبو را حفظ کنید، این عدد تا <strong>+3 Credit</strong> در هر ضربه بالا می‌رود.</p>
+
+      <h4>۲. مینی‌گیم‌ها</h4>
+      <p>هر مینی‌گیم در Marvels HC، بین ۵۰ تا ۵۰۰ Credit پاداش می‌دهد. Reflex Rush بیشترین پاداش را دارد.</p>
+
+      <h4>۳. جوایز روزانه (Reward)</h4>
+      <p>هر ۲۴ ساعت یکبار، با کلیک روی بخش Reward یک پاداش تصادفی بین ۱۰۰ تا ۱۰۰۰ Credit دریافت می‌کنید.</p>
+
+      <h4>۴. Hard Comeback</h4>
+      <p>اگر در حالت Hard Comeback برنده شوید، ۳ برابر Credits معمول را می‌گیرید.</p>
+
+      <h4>۵. ارتقاء قهرمانان</h4>
+      <p>هر قهرمانی که ارتقا می‌دهید، ۵٪ به ضریب درآمد شما اضافه می‌کند. سرمایه‌گذاری روی قهرمانان، در بلندمدت سودآورتر است.</p>
+
+      <h4>جدول مقایسه سریع</h4>
+      <ul>
+        <li>ضربه معمولی → ۱ Credit در ثانیه</li>
+        <li>ضربه کمبو → ۳ Credit در ثانیه</li>
+        <li>مینی‌گیم Reflex Rush → ۵۰۰ Credit در ۳۰ ثانیه</li>
+        <li>Reward روزانه → ۱۰۰ تا ۱۰۰۰ Credit در روز</li>
+        <li>Hard Comeback → ۳ برابر حالت عادی</li>
+      </ul>
+
+      <p><strong>نتیجه:</strong> بهترین ترکیب برای کسب سریع Credits، «Reflex Rush + کمبو + Reward روزانه» است. با این روش، در یک هفته می‌توانید اولین قهرمان افسانه‌ای خود را بخرید.</p>
     </div>
 
   </div>
 </section>
 
-<!-- بخش اخبار -->
-<section class="content-section" id="news">
-  <h2>📰 آخرین اخبار و به‌روزرسانی‌ها</h2>
-  <div class="news-grid">
+<!-- ===== راهنمای بازی ===== -->
+<section id="guide">
+  <div class="container">
+    <h2>📖 راهنمای بازی</h2>
+    <p class="subtitle">در ۵ مرحله ساده، بازی را یاد بگیرید</p>
 
-    <div class="news-card">
-      <span class="tag">به‌روزرسانی</span>
-      <h3>نسخه v4.3 منتشر شد</h3>
-      <p>رفع باگ‌ها و بهبود پایداری، اضافه شدن سایت پشتیبانی آنلاین، یک مینی‌گیم جدید و بهینه‌سازی عملکرد.</p>
-      <span class="date">📅 به‌روزرسانی اخیر</span>
+    <div class="guide-grid">
+
+      <div class="guide-step">
+        <span class="guide-num">1</span>
+        <h4>ساخت حساب</h4>
+        <p>با REGISTER ثبت‌نام کنید یا با PLAY AS GUEST به‌عنوان مهمان وارد شوید. برای ذخیره پیشرفت، حتماً ثبت‌نام کنید.</p>
+      </div>
+
+      <div class="guide-step">
+        <span class="guide-num">2</span>
+        <h4>ضربه زدن (Strike)</h4>
+        <p>روی دکمه TAP TO STRIKE بزنید تا ضربه وارد کنید و Combat Credits بگیرید. هر ضربه +1 Credit.</p>
+      </div>
+
+      <div class="guide-step">
+        <span class="guide-num">3</span>
+        <h4>حفظ کمبو</h4>
+        <p>با ضربه‌های پیوسته، کمبو را حفظ کنید. کمبوی بالاتر = پاداش بیشتر. اگر ۳ ثانیه ضربه نزنید، کمبو خالی می‌شود.</p>
+      </div>
+
+      <div class="guide-step">
+        <span class="guide-num">4</span>
+        <h4>مدیریت قهرمانان</h4>
+        <p>از بخش HEROES قهرمان جدید بخرید و ارتقا دهید. هر قهرمان ضریب درآمد شما را بالا می‌برد.</p>
+      </div>
+
+      <div class="guide-step">
+        <span class="guide-num">5</span>
+        <h4>جوایز و مینی‌گیم‌ها</h4>
+        <p>هر روز از بخش REWARD جایزه بگیرید و مینی‌گیم‌ها را برای کسب سریع Credits بازی کنید.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== سوالات متداول ===== -->
+<section id="faq">
+  <div class="container">
+    <h2>❓ سوالات متداول</h2>
+    <p class="subtitle">پاسخ سوالات پرتکرار بازیکنان</p>
+
+    <div class="faq-item">
+      <div class="faq-q"><span>چطور در بازی ثبت‌نام کنم؟</span><span class="icon">+</span></div>
+      <div class="faq-a"><p>روی دکمه <strong>REGISTER</strong> کلیک کنید و یک نام کاربری با حداقل ۳ کاراکتر وارد کنید. اطلاعات به‌صورت محلی ذخیره می‌شود.</p></div>
     </div>
 
-    <div class="news-card">
-      <span class="tag">ویژگی جدید</span>
-      <h3>مینی‌گیم جدید اضافه شد</h3>
-      <p>یک بازی کوچک کاملاً جدید به بخش Mini Games اضافه شده است. همین حالا امتحان کنید!</p>
-      <span class="date">📅 جدید</span>
+    <div class="faq-item">
+      <div class="faq-q"><span>آیا بدون ثبت‌نام می‌توانم بازی کنم؟</span><span class="icon">+</span></div>
+      <div class="faq-a"><p>بله، با <strong>PLAY AS GUEST</strong> وارد شوید. اما پیشرفت شما ذخیره نمی‌شود.</p></div>
     </div>
 
-    <div class="news-card">
-      <span class="tag">پشتیبانی</span>
-      <h3>سایت پشتیبانی آنلاین راه‌اندازی شد</h3>
-      <p>از این پس می‌توانید سوالات و مشکلات خود را از طریق سایت پشتیبانی رسمی مطرح کنید.</p>
-      <span class="date">📅 جدید</span>
+    <div class="faq-item">
+      <div class="faq-q"><span>Combat Credits چطور به دست می‌آید؟</span><span class="icon">+</span></div>
+      <div class="faq-a"><p>با هر ضربه (Strike) یک Credit می‌گیرید. با کمبو، مینی‌گیم‌ها، Reward روزانه و Hard Comeback هم Credits بیشتری به دست می‌آورید.</p></div>
     </div>
 
-    <div class="news-card">
-      <span class="tag">عملکرد</span>
-      <h3>بهینه‌سازی برای دستگاه‌های ضعیف</h3>
-      <p>با تغییرات جدید، بازی روی دستگاه‌های کم‌قدرت هم روان‌تر اجرا می‌شود.</p>
-      <span class="date">📅 اخیر</span>
+    <div class="faq-item">
+      <div class="faq-q"><span>Hard Comeback چیست؟</span><span class="icon">+</span></div>
+      <div class="faq-a"><p>یک مکانیک ویژه که وقتی در وضعیت ضعیف قرار دارید فعال می‌شود و به شما شانس برگشت با پاداش ۳ برابری می‌دهد. جزئیات کامل در بخش مقالات موجود است.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span>اطلاعات من کجا ذخیره می‌شود؟</span><span class="icon">+</span></div>
+      <div class="faq-a"><p>تمام اطلاعات <strong>محلی (Local)</strong> در مرورگر شما ذخیره می‌شود. پاک کردن حافظه مرورگر باعث از دست رفتن آن می‌شود.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span>چطور باگ یا مشکل خود را گزارش دهم؟</span><span class="icon">+</span></div>
+      <div class="faq-a"><p>از طریق <strong>سایت پشتیبانی آنلاین</strong> که در نسخه v4.3 اضافه شد، می‌توانید مشکل خود را مطرح کنید.</p></div>
     </div>
 
   </div>
 </section>
 
-<!-- بخش سوالات متداول -->
-<section class="content-section" id="faq">
-  <h2>❓ سوالات متداول</h2>
-
-  <div class="faq-item">
-    <div class="faq-question"><span>چگونه می‌توانم در بازی ثبت‌نام کنم؟</span><span class="icon">+</span></div>
-    <div class="faq-answer"><p>روی دکمه <strong>REGISTER</strong> در صفحه اصلی بازی کلیک کنید و یک نام کاربری با حداقل ۳ کاراکتر وارد کنید.</p></div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-question"><span>آیا می‌توانم بدون ثبت‌نام بازی کنم؟</span><span class="icon">+</span></div>
-    <div class="faq-answer"><p>بله! با انتخاب گزینه <strong>PLAY AS GUEST</strong> می‌توانید بدون ساخت حساب وارد شوید، اما پیشرفت ذخیره نمی‌شود.</p></div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-question"><span>Combat Credits چیست؟</span><span class="icon">+</span></div>
-    <div class="faq-answer"><p>واحد پول داخلی بازی است که با هر ضربه (Strike) به دست می‌آید. در نسخه فعلی با هر ضربه <strong>+1 Credit</strong> می‌گیرید.</p></div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-question"><span>اطلاعات من کجا ذخیره می‌شود؟</span><span class="icon">+</span></div>
-    <div class="faq-answer"><p>تمامی اطلاعات به‌صورت <strong>محلی (Local)</strong> در مرورگر یا دستگاه شما ذخیره می‌شود.</p></div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-question"><span>چطور قهرمان جدید بگیرم؟</span><span class="icon">+</span></div>
-    <div class="faq-answer"><p>با کلیک روی دکمه <strong>⚡ HEROES</strong> می‌توانید قهرمانان را ببینید و با Combat Credits آن‌ها را باز کنید.</p></div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-question"><span>چگونه باگ خود را گزارش دهم؟</span><span class="icon">+</span></div>
-    <div class="faq-answer"><p>از طریق <strong>سایت پشتیبانی آنلاین</strong> می‌توانید مشکل خود را گزارش دهید.</p></div>
-  </div>
-</section>
-
-<!-- فوتر -->
+<!-- ===== فوتر ===== -->
 <footer>
   <p>© 2025 MARVELS HC — تمامی حقوق محفوظ است.</p>
-  <p>ساخته شده با ❤️ توسط <span class="credit">Parham.KH</span></p>
+  <p>ساخته شده توسط <span class="credit">Parham.KH</span></p>
 </footer>
 
-<!-- ============================================
-     ⭐ اسکریپت‌های آمار زنده ⭐
-     ============================================ -->
+<!-- ===== JavaScript بهینه ===== -->
 <script>
-/* ===== 1. ساخت ذرات شناور ===== */
-(function createParticles() {
-  const container = document.getElementById('particles');
-  const count = 25;
-  for (let i = 0; i < count; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (Math.random() * 10 + 10) + 's';
-    p.style.animationDelay = (Math.random() * 10) + 's';
-    p.style.width = p.style.height = (Math.random() * 3 + 2) + 'px';
-    p.style.opacity = Math.random() * 0.6 + 0.2;
-    container.appendChild(p);
+/* ===== 1. ذرات درخشان (تعداد کم برای عملکرد) ===== */
+(function(){
+  var container=document.getElementById('particles');
+  var count=window.innerWidth<600?8:15;
+  var frag=document.createDocumentFragment();
+  for(var i=0;i<count;i++){
+    var p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDuration=(Math.random()*12+12)+'s';
+    p.style.animationDelay=(Math.random()*12)+'s';
+    var size=Math.random()*2+2;
+    p.style.width=size+'px';
+    p.style.height=size+'px';
+    frag.appendChild(p);
   }
+  container.appendChild(frag);
 })();
 
-/* ===== 2. شمارنده انیمیشنی اعداد (Count-Up) ===== */
-function animateValue(el, start, end, duration, suffix = '') {
-  const startTime = performance.now();
-  function update(now) {
-    const progress = Math.min((now - startTime) / duration, 1);
-    // easeOutCubic برای حرکت نرم
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.floor(start + (end - start) * eased);
-    el.textContent = current + suffix;
-    if (progress < 1) requestAnimationFrame(update);
-    else el.textContent = end + suffix;
+/* ===== 2. شمارنده انیمیشنی ===== */
+function animateValue(el,end,duration,suffix){
+  var start=0,startTime=null;
+  function step(ts){
+    if(!startTime)startTime=ts;
+    var p=Math.min((ts-startTime)/duration,1);
+    var eased=1-Math.pow(1-p,3);
+    var v=Math.floor(start+(end-start)*eased);
+    el.textContent=v+(suffix||'');
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=end+(suffix||'');
   }
-  requestAnimationFrame(update);
+  requestAnimationFrame(step);
 }
 
-/* اجرای شمارنده‌ها هنگام دیده شدن کارت */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const card = entry.target;
-      const valueEl = card.querySelector('.stat-value[data-target]');
-      const barEl = card.querySelector('.stat-bar-fill[data-width]');
+var statsDone=false;
+function checkStats(){
+  var stats=document.getElementById('stats');
+  if(!stats||statsDone)return;
+  var rect=stats.getBoundingClientRect();
+  if(rect.top<window.innerHeight-80){
+    statsDone=true;
+    document.querySelectorAll('.stat-value[data-target]').forEach(function(el){
+      var target=parseInt(el.dataset.target);
+      var suffix=el.dataset.suffix||'';
+      animateValue(el,target,1400,suffix?' '+suffix:'');
+    });
+    document.querySelectorAll('.stat-bar-fill[data-width]').forEach(function(el){
+      setTimeout(function(){el.style.width=el.dataset.width},400);
+    });
+  }
+}
+window.addEventListener('scroll',checkStats,{passive:true});
+window.addEventListener('load',checkStats);
 
-      if (valueEl && !valueEl.dataset.done) {
-        const target = parseInt(valueEl.dataset.target);
-        const suffix = valueEl.dataset.suffix || '';
-        animateValue(valueEl, 0, target, 1500, suffix ? ' ' + suffix : '');
-        valueEl.dataset.done = 'true';
-      }
+/* ===== 3. بازیکنان آنلاین پویا ===== */
+var onlineEl=document.getElementById('onlinePlayers');
+var onlineBar=document.getElementById('onlineBar');
+var onlineCount=1000;
 
-      if (barEl && !barEl.dataset.done) {
-        setTimeout(() => {
-          barEl.style.width = barEl.dataset.width;
-        }, 300);
-        barEl.dataset.done = 'true';
-      }
-    }
-  });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.stat-card').forEach(card => observer.observe(card));
-
-/* ===== 3. ⭐ آمار پویا: بازیکنان آنلاین ===== */
-const onlineEl = document.getElementById('onlinePlayers');
-const onlineBar = document.getElementById('onlineBar');
-
-// مقدار اولیه: 1000 نفر
-let onlineCount = 1000;
-
-function formatOnline(n) {
-  if (n >= 1000) return (n / 1000).toFixed(1).replace('.0', '') + 'K';
+function formatOnline(n){
+  if(n>=1000)return (n/1000).toFixed(1).replace('.0','')+'K';
   return n.toString();
 }
+function updateOnline(){
+  var change=Math.floor(Math.random()*180)-60;
+  onlineCount=Math.max(600,Math.min(2400,onlineCount+change));
+  onlineEl.textContent=formatOnline(onlineCount);
 
-function updateOnline() {
-  // تغییر تصادفی بین -80 تا +120
-  const change = Math.floor(Math.random() * 200) - 80;
-  onlineCount = Math.max(500, Math.min(2500, onlineCount + change));
+  var percent=Math.min(95,Math.max(30,(onlineCount/2500)*100));
+  onlineBar.style.width=percent+'%';
 
-  // انیمیشن نرم عدد
-  const from = parseInt(onlineEl.textContent.replace(/[^0-9]/g, '')) || onlineCount;
-  animateValue(onlineEl, onlineCount - change, onlineCount, 800, '');
-
-  // به‌روزرسانی نمایش K
-  setTimeout(() => {
-    onlineEl.textContent = formatOnline(onlineCount);
-  }, 800);
-
-  // تغییر عرض نوار پیشرفت (بین 30% تا 95%)
-  const percent = Math.min(95, Math.max(30, (onlineCount / 2500) * 100));
-  onlineBar.style.width = percent + '%';
-
-  // تغییر رنگ نوار بر اساس ترافیک
-  if (onlineCount > 1800) {
-    onlineBar.style.background = 'linear-gradient(90deg, #00ff66, #00cc44)';
-  } else if (onlineCount > 1000) {
-    onlineBar.style.background = 'linear-gradient(90deg, #ffd700, #ff8c00)';
-  } else {
-    onlineBar.style.background = 'linear-gradient(90deg, #ff4444, #cc0000)';
+  if(onlineCount>1800){
+    onlineBar.style.background='linear-gradient(90deg,#4ade80,#22c55e)';
+  }else if(onlineCount>1000){
+    onlineBar.style.background='linear-gradient(90deg,#ffd700,#ff8c00)';
+  }else{
+    onlineBar.style.background='linear-gradient(90deg,#ef4444,#dc2626)';
   }
 }
-
-// اولین به‌روزرسانی و سپس هر ۲ ثانیه
 updateOnline();
-setInterval(updateOnline, 2000);
+setInterval(updateOnline,2500);
 
-/* ===== 4. ⭐ آمار پویا: مجموع ضربات ===== */
-const strikesEl = document.getElementById('totalStrikes');
-const strikesBar = document.getElementById('strikesBar');
+/* ===== 4. مجموع ضربات ===== */
+var strikesEl=document.getElementById('totalStrikes');
+var strikesBar=document.getElementById('strikesBar');
+var totalStrikes=1245832;
 
-// شروع از 1.2 میلیون ضربه
-let totalStrikes = 1245832;
-
-function formatStrikes(n) {
-  if (n >= 1000000) return (n / 1000000).toFixed(2) + 'M';
-  if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+function formatStrikes(n){
+  if(n>=1000000)return (n/1000000).toFixed(2)+'M';
+  if(n>=1000)return (n/1000).toFixed(1)+'K';
   return n.toString();
 }
+strikesEl.textContent=formatStrikes(totalStrikes);
 
-// نمایش اولیه
-strikesEl.textContent = formatStrikes(totalStrikes);
+setInterval(function(){
+  totalStrikes+=Math.floor(Math.random()*40)+8;
+  strikesEl.textContent=formatStrikes(totalStrikes);
 
-setInterval(() => {
-  // هر ثانیه تعداد ضربات تصادفی اضافه می‌شود
-  const added = Math.floor(Math.random() * 50) + 10;
-  totalStrikes += added;
-  strikesEl.textContent = formatStrikes(totalStrikes);
+  strikesEl.style.transform='scale(1.08)';
+  strikesEl.style.transition='0.15s';
+  setTimeout(function(){strikesEl.style.transform='scale(1)'},150);
 
-  // افکت پالس روی عدد
-  strikesEl.style.transform = 'scale(1.1)';
-  strikesEl.style.transition = '0.15s';
-  setTimeout(() => {
-    strikesEl.style.transform = 'scale(1)';
-  }, 150);
+  var percent=60+(totalStrikes%25);
+  strikesBar.style.width=percent+'%';
+},1500);
 
-  // به‌روزرسانی نوار
-  const percent = 60 + (totalStrikes % 30);
-  strikesBar.style.width = percent + '%';
-}, 1000);
-
-/* ===== 5. آکاردئون FAQ ===== */
-document.querySelectorAll('.faq-question').forEach(item => {
-  item.addEventListener('click', () => {
-    const parent = item.parentElement;
-    const isActive = parent.classList.contains('active');
-
-    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
-    if (!isActive) parent.classList.add('active');
+/* ===== 5. نمایش مقالات ===== */
+document.querySelectorAll('.read-more').forEach(function(link){
+  link.addEventListener('click',function(e){
+    e.preventDefault();
+    var id=this.dataset.article;
+    document.getElementById('articlesList').style.display='none';
+    document.querySelectorAll('.article-full').forEach(function(a){a.classList.remove('show')});
+    document.getElementById(id).classList.add('show');
+    document.getElementById('articles').scrollIntoView({behavior:'smooth'});
   });
 });
 
-/* ===== 6. اسکرول نرم ===== */
-document.querySelectorAll('nav a, .hero a').forEach(link => {
-  link.addEventListener('click', e => {
-    const href = link.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+function closeArticle(){
+  document.querySelectorAll('.article-full').forEach(function(a){a.classList.remove('show')});
+  document.getElementById('articlesList').style.display='grid';
+  document.getElementById('articles').scrollIntoView({behavior:'smooth'});
+}
+
+/* ===== 6. FAQ ===== */
+document.querySelectorAll('.faq-q').forEach(function(item){
+  item.addEventListener('click',function(){
+    var parent=this.parentElement;
+    var active=parent.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(function(el){el.classList.remove('active')});
+    if(!active)parent.classList.add('active');
   });
 });
 </script>
