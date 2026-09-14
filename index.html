@@ -1,350 +1,867 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0a0618">
-<title>Building...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARVELS HC | مرکز اطلاع‌رسانی و پشتیبانی</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;overflow:hidden;background:#0a0618}
-
-  body{
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    color: #f5f0ff;
-    display: grid;
-    place-items: center;
-    min-height: 100svh;
-    position: relative;
-    -webkit-font-smoothing: antialiased;
   }
 
-  /* ===== Background (single layer, GPU) ===== */
-  .bg{
+  body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #eaeaea;
+    min-height: 100vh;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ====== ذرات شناور پس‌زمینه ====== */
+  .particles {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
     z-index: 0;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(255,122,61,.22), transparent 45%),
-      radial-gradient(circle at 80% 70%, rgba(168,85,247,.22), transparent 45%),
-      linear-gradient(180deg, #0a0618, #150a2e);
-    animation: bgShift 12s ease-in-out infinite;
-    will-change: transform;
-  }
-  @keyframes bgShift{
-    0%,100%{transform: scale(1) rotate(0deg)}
-    50%{transform: scale(1.06) rotate(2deg)}
-  }
-
-  /* ===== Grid ===== */
-  .grid{
-    position: fixed;
-    inset: -50%;
-    z-index: 1;
-    opacity: .1;
-    background-image:
-      linear-gradient(rgba(255,122,61,.5) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,122,61,.5) 1px, transparent 1px);
-    background-size: 60px 60px;
-    transform: perspective(700px) rotateX(58deg);
-    animation: gridMove 6s linear infinite;
-    mask-image: radial-gradient(ellipse at center, #000 25%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 70%);
-    will-change: background-position;
-  }
-  @keyframes gridMove{
-    to { background-position: 0 60px, 60px 0; }
-  }
-
-  /* ===== Orbs ===== */
-  .orb{
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(60px);
-    z-index: 1;
-    pointer-events: none;
-    opacity: .45;
-    will-change: transform;
-  }
-  .o1{
-    width: 280px; height: 280px;
-    background: #ff7a3d;
-    top: 8%; left: 8%;
-    animation: o1 12s ease-in-out infinite;
-  }
-  .o2{
-    width: 240px; height: 240px;
-    background: #a855f7;
-    bottom: 12%; right: 10%;
-    animation: o2 14s ease-in-out infinite;
-  }
-  .o3{
-    width: 180px; height: 180px;
-    background: #ff9a5c;
-    top: 62%; left: 62%;
-    animation: o3 16s ease-in-out infinite;
-  }
-  @keyframes o1{
-    0%,100%{transform: translate3d(0,0,0)}
-    50%{transform: translate3d(70px,50px,0)}
-  }
-  @keyframes o2{
-    0%,100%{transform: translate3d(0,0,0)}
-    50%{transform: translate3d(-60px,-45px,0)}
-  }
-  @keyframes o3{
-    0%,100%{transform: translate3d(0,0,0)}
-    50%{transform: translate3d(-55px,60px,0)}
-  }
-
-  /* ===== Particles ===== */
-  .particles{
-    position: fixed;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
     overflow: hidden;
-    contain: strict;
   }
-  .p{
+
+  .particle {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
+    background: #ffd700;
     border-radius: 50%;
-    opacity: 0;
-    animation: rise linear infinite;
-    will-change: transform, opacity;
-  }
-  @keyframes rise{
-    0%{transform: translate3d(0, 105vh, 0) scale(0); opacity: 0}
-    10%{opacity: .7}
-    90%{opacity: .7}
-    100%{transform: translate3d(0, -10vh, 0) scale(1); opacity: 0}
+    opacity: 0.6;
+    box-shadow: 0 0 10px #ffd700;
+    animation: floatUp linear infinite;
   }
 
-  /* ===== Content ===== */
-  main{
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 20px;
+  @keyframes floatUp {
+    0% {
+      transform: translateY(100vh) scale(0);
+      opacity: 0;
+    }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% {
+      transform: translateY(-100px) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  /* ====== هدر ====== */
+  header {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid #ffd700;
   }
 
-  /* ===== Hammer ===== */
-  .hammer{
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffd700;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  }
+
+  nav a {
+    color: #eaeaea;
+    text-decoration: none;
+    margin-right: 25px;
+    font-weight: 500;
+    transition: 0.3s;
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+
+  nav a:hover {
+    color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+  }
+
+  /* ====== بخش قهرمان (Hero) ====== */
+  .hero {
+    text-align: center;
+    padding: 80px 20px 40px;
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15), transparent 70%);
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    color: #ffd700;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: #b8b8d1;
+    max-width: 700px;
+    margin: 0 auto 30px;
+  }
+
+  .btn {
     display: inline-block;
-    font-size: clamp(56px, 11vw, 92px);
-    margin-bottom: 28px;
-    transform-origin: 60% 80%;
-    animation: swing 1.4s ease-in-out infinite;
-    filter: drop-shadow(0 0 25px rgba(255,122,61,.55));
-    will-change: transform;
-  }
-  @keyframes swing{
-    0%,100%{transform: rotate(-25deg)}
-    50%{transform: rotate(20deg)}
-  }
-
-  /* ===== BUILDING (animated gradient text) ===== */
-  .title{
-    font-size: clamp(40px, 10vw, 92px);
-    font-weight: 900;
-    letter-spacing: 4px;
-    line-height: 1;
-    margin-bottom: 22px;
-    display: inline-block;
-
-    background-image: linear-gradient(
-      90deg,
-      #ff7a3d 0%,
-      #ffb84d 20%,
-      #ff9a5c 40%,
-      #a855f7 60%,
-      #ff4d94 80%,
-      #ff7a3d 100%
-    );
-    background-size: 300% 100%;
-    background-repeat: repeat;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-
-    animation: feed 4s linear infinite;
-    will-change: background-position;
-  }
-  @keyframes feed{
-    0%   { background-position: 0% 50% }
-    100% { background-position: 300% 50% }
-  }
-  @supports not (-webkit-background-clip: text){
-    .title{ color: #ff7a3d; }
-  }
-
-  /* ===== Dots ===== */
-  .dots{
-    display: inline-flex;
-    gap: 9px;
-    margin-bottom: 30px;
-  }
-  .dots i{
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    display: block;
-    animation: bounce 1.4s ease-in-out infinite;
-    will-change: transform;
-  }
-  .dots i:nth-child(1){background:#ff7a3d; box-shadow:0 0 15px #ff7a3d; animation-delay:0s}
-  .dots i:nth-child(2){background:#ff9a5c; box-shadow:0 0 15px #ff9a5c; animation-delay:.2s}
-  .dots i:nth-child(3){background:#a855f7; box-shadow:0 0 15px #a855f7; animation-delay:.4s}
-  @keyframes bounce{
-    0%,60%,100%{transform: translateY(0)}
-    30%{transform: translateY(-13px)}
-  }
-
-  /* ===== Play button ===== */
-  .play-btn{
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 34px;
-    border-radius: 16px;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: #fff;
-    background: linear-gradient(135deg, #ff7a3d, #ff9a5c);
+    background: linear-gradient(45deg, #ffd700, #ff8c00);
+    color: #1a1a2e;
+    padding: 14px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    transition: 0.3s;
     border: none;
     cursor: pointer;
-    text-decoration: none;
-    box-shadow:
-      0 10px 30px rgba(255,122,61,.45),
-      inset 0 1px 0 rgba(255,255,255,.25);
-    transition: transform .2s, box-shadow .2s;
-    animation: btnPulse 2.4s ease-in-out infinite;
-    will-change: transform, box-shadow;
   }
-  .play-btn:hover{
-    transform: translateY(-3px) scale(1.03);
-    box-shadow:
-      0 16px 40px rgba(255,122,61,.6),
-      inset 0 1px 0 rgba(255,255,255,.3);
-    animation-play-state: paused;
-  }
-  .play-btn:active{transform: translateY(-1px) scale(1)}
-  @keyframes btnPulse{
-    0%,100%{box-shadow: 0 10px 30px rgba(255,122,61,.45), inset 0 1px 0 rgba(255,255,255,.25)}
-    50%{box-shadow: 0 14px 40px rgba(255,122,61,.7), inset 0 1px 0 rgba(255,255,255,.3)}
-  }
-  .play-btn .arrow{font-size: 18px; transition: transform .2s}
-  .play-btn:hover .arrow{transform: translateX(-4px)}
 
-  /* ===== Footer ===== */
-  footer{
-    position: fixed;
-    bottom: 22px;
-    left: 0;
-    right: 0;
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.7);
+  }
+
+  /* ============================================
+     ⭐ بخش آمار گرافیکی زنده ⭐
+     ============================================ */
+  .stats-section {
+    max-width: 1200px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stats-section h2 {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 40px;
     text-align: center;
-    z-index: 10;
-    font-size: 12px;
-    color: #a99fc9;
-    letter-spacing: 1px;
-    opacity: 0;
-    animation: fadeUp 2s ease 1s forwards;
-  }
-  @keyframes fadeUp{
-    from{opacity: 0; transform: translateY(10px)}
-    to{opacity: .85; transform: translateY(0)}
+    position: relative;
+    padding-bottom: 15px;
   }
 
-  /* ===== Scanline ===== */
-  .scan{
-    position: fixed;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    opacity: .035;
-    background: repeating-linear-gradient(
-      180deg,
-      #ff7a3d 0 1px,
-      transparent 1px 3px
-    );
+  .stats-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
   }
 
-  /* ===== Reduced motion ===== */
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{
-      animation-duration: .01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .01ms !important;
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+  }
+
+  .stat-card {
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.08), rgba(255, 140, 0, 0.03));
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s;
+    cursor: pointer;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .stat-card:nth-child(1) { animation-delay: 0.1s; }
+  .stat-card:nth-child(2) { animation-delay: 0.2s; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
-    .title{ background-position: 50% 50% }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* افکت درخشش متحرک */
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      transparent,
+      rgba(255, 215, 0, 0.4),
+      transparent 30%
+    );
+    animation: rotate 4s linear infinite;
+    opacity: 0;
+    transition: 0.4s;
+  }
+
+  .stat-card:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: linear-gradient(145deg, #1a1a2e, #24243e);
+    border-radius: 18px;
+    z-index: 0;
+  }
+
+  .stat-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #ffd700;
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+    display: inline-block;
+    transition: 0.4s;
+  }
+
+  .stat-card:hover .stat-icon {
+    transform: scale(1.2) rotate(5deg);
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    letter-spacing: 1px;
+    display: block;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    color: #b8b8d1;
+    font-size: 0.95rem;
+    margin-top: 8px;
+    display: block;
+    font-weight: 500;
+  }
+
+  /* نوار پیشرفت */
+  .stat-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffd700, #ff8c00);
+    border-radius: 10px;
+    width: 0%;
+    transition: width 1.5s ease;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    position: relative;
+  }
+
+  .stat-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    filter: blur(5px);
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* نشانگر زنده (Live) */
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 255, 100, 0.15);
+    color: #00ff66;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 255, 100, 0.4);
+  }
+
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff66;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 10px #00ff66;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0.5;
+    }
+  }
+
+  /* بخش‌های اصلی */
+  section.content-section {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  section.content-section h2 {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+  }
+
+  section.content-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  }
+
+  /* کارت اخبار */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .news-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .news-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #ffd700, #ff8c00);
+  }
+
+  .news-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffd700;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+  }
+
+  .news-card .tag {
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.15);
+    color: #ffd700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+  }
+
+  .news-card h3 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+
+  .news-card p {
+    color: #b8b8d1;
+    font-size: 0.95rem;
+  }
+
+  .news-card .date {
+    display: block;
+    margin-top: 15px;
+    color: #888;
+    font-size: 0.85rem;
+  }
+
+  /* سوالات متداول */
+  .faq-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  .faq-item:hover {
+    border-color: #ffd700;
+  }
+
+  .faq-question {
+    padding: 20px 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.05rem;
+    user-select: none;
+    transition: 0.3s;
+  }
+
+  .faq-question:hover {
+    background: rgba(255, 215, 0, 0.08);
+  }
+
+  .faq-question .icon {
+    color: #ffd700;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    font-weight: bold;
+  }
+
+  .faq-item.active .faq-question .icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 25px;
+    color: #b8b8d1;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+    padding: 0 25px 20px;
+  }
+
+  /* فوتر */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-top: 2px solid #ffd700;
+    margin-top: 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer p {
+    color: #b8b8d1;
+    margin-bottom: 8px;
+  }
+
+  footer .credit {
+    color: #ffd700;
+    font-weight: bold;
+  }
+
+  /* ریسپانسیو */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      gap: 15px;
+      padding: 15px 20px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      font-size: 0.9rem;
+    }
+
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+
+    .stat-value { font-size: 2rem; }
+    .stat-icon { font-size: 2rem; }
+
+    section.content-section h2,
+    .stats-section h2 { font-size: 1.5rem; }
   }
 </style>
 </head>
 <body>
 
-  <!-- Background layers -->
-  <div class="bg"></div>
-  <div class="grid"></div>
-  <div class="orb o1"></div>
-  <div class="orb o2"></div>
-  <div class="orb o3"></div>
-  <div class="particles" id="particles"></div>
-  <div class="scan"></div>
+<!-- ذرات شناور پس‌زمینه -->
+<div class="particles" id="particles"></div>
 
-  <!-- Content -->
-  <main>
-    <div class="hammer">🛠️</div>
-    <h1 class="title">BUILDING</h1>
-    <div class="dots"><i></i><i></i><i></i></div>
+<!-- هدر -->
+<header>
+  <div class="logo">MARVELS·HC</div>
+  <nav>
+    <a href="#stats">آمار</a>
+    <a href="#news">اخبار</a>
+    <a href="#faq">سوالات متداول</a>
+    <a href="#guide">راهنما</a>
+  </nav>
+</header>
 
-    <!-- Play button -->
-    <a class="play-btn" href="https://pariorobber.github.io/Marvel-HC/" target="_blank" rel="noopener">
-      <span>🎮</span>
-      <span>PLAY NOW</span>
-      <span class="arrow">↖</span>
-    </a>
-  </main>
+<!-- بخش قهرمان -->
+<div class="hero">
+  <h1>MARVELS HC</h1>
+  <p>مرکز اطلاع‌رسانی، اخبار و پشتیبانی رسمی بازی. آخرین به‌روزرسانی‌ها، راهنماها و پاسخ سوالات پرتکرار شما اینجاست.</p>
+  <a href="#stats" class="btn">🚀 مشاهده آمار زنده</a>
+</div>
 
-  <!-- Footer -->
-  <footer>© 1405</footer>
+<!-- ============================================
+     ⭐ بخش آمار گرافیکی زنده ⭐
+     ============================================ -->
+<section class="stats-section" id="stats">
+  <h2>📊 آمار زنده بازی</h2>
 
+  <div class="stats-grid">
+
+    <!-- آمار ۱: سابقه -->
+    <div class="stat-card">
+      <span class="stat-icon">🏆</span>
+      <span class="stat-value" data-target="1" data-suffix="+ سال">0</span>
+      <span class="stat-label">سابقه فعالیت</span>
+      <div class="stat-bar">
+        <div class="stat-bar-fill" data-width="85%"></div>
+      </div>
+    </div>
+
+    <!-- آمار ۲: بازیکنان آنلاین (پویا) -->
+    <div class="stat-card">
+      <span class="live-badge">
+        <span class="live-dot"></span>
+        LIVE
+      </span>
+      <span class="stat-icon">👥</span>
+      <span class="stat-value" id="onlinePlayers">1K</span>
+      <span class="stat-label">بازیکنان آنلاین</span>
+      <div class="stat-bar">
+        <div class="stat-bar-fill" id="onlineBar" style="width: 70%;"></div>
+      </div>
+    </div>
+
+    <!-- آمار ۳: بازی‌های فعال -->
+    <div class="stat-card">
+      <span class="stat-icon">🎮</span>
+      <span class="stat-value" data-target="1">0</span>
+      <span class="stat-label">بازی فعال</span>
+      <div class="stat-bar">
+        <div class="stat-bar-fill" data-width="100%"></div>
+      </div>
+    </div>
+
+    <!-- آمار ۴: مجموع ضربات -->
+    <div class="stat-card">
+      <span class="stat-icon">⚔️</span>
+      <span class="stat-value" id="totalStrikes">0</span>
+      <span class="stat-label">مجموع ضربات</span>
+      <div class="stat-bar">
+        <div class="stat-bar-fill" id="strikesBar" style="width: 60%;"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- بخش اخبار -->
+<section class="content-section" id="news">
+  <h2>📰 آخرین اخبار و به‌روزرسانی‌ها</h2>
+  <div class="news-grid">
+
+    <div class="news-card">
+      <span class="tag">به‌روزرسانی</span>
+      <h3>نسخه v4.3 منتشر شد</h3>
+      <p>رفع باگ‌ها و بهبود پایداری، اضافه شدن سایت پشتیبانی آنلاین، یک مینی‌گیم جدید و بهینه‌سازی عملکرد.</p>
+      <span class="date">📅 به‌روزرسانی اخیر</span>
+    </div>
+
+    <div class="news-card">
+      <span class="tag">ویژگی جدید</span>
+      <h3>مینی‌گیم جدید اضافه شد</h3>
+      <p>یک بازی کوچک کاملاً جدید به بخش Mini Games اضافه شده است. همین حالا امتحان کنید!</p>
+      <span class="date">📅 جدید</span>
+    </div>
+
+    <div class="news-card">
+      <span class="tag">پشتیبانی</span>
+      <h3>سایت پشتیبانی آنلاین راه‌اندازی شد</h3>
+      <p>از این پس می‌توانید سوالات و مشکلات خود را از طریق سایت پشتیبانی رسمی مطرح کنید.</p>
+      <span class="date">📅 جدید</span>
+    </div>
+
+    <div class="news-card">
+      <span class="tag">عملکرد</span>
+      <h3>بهینه‌سازی برای دستگاه‌های ضعیف</h3>
+      <p>با تغییرات جدید، بازی روی دستگاه‌های کم‌قدرت هم روان‌تر اجرا می‌شود.</p>
+      <span class="date">📅 اخیر</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- بخش سوالات متداول -->
+<section class="content-section" id="faq">
+  <h2>❓ سوالات متداول</h2>
+
+  <div class="faq-item">
+    <div class="faq-question"><span>چگونه می‌توانم در بازی ثبت‌نام کنم؟</span><span class="icon">+</span></div>
+    <div class="faq-answer"><p>روی دکمه <strong>REGISTER</strong> در صفحه اصلی بازی کلیک کنید و یک نام کاربری با حداقل ۳ کاراکتر وارد کنید.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span>آیا می‌توانم بدون ثبت‌نام بازی کنم؟</span><span class="icon">+</span></div>
+    <div class="faq-answer"><p>بله! با انتخاب گزینه <strong>PLAY AS GUEST</strong> می‌توانید بدون ساخت حساب وارد شوید، اما پیشرفت ذخیره نمی‌شود.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span>Combat Credits چیست؟</span><span class="icon">+</span></div>
+    <div class="faq-answer"><p>واحد پول داخلی بازی است که با هر ضربه (Strike) به دست می‌آید. در نسخه فعلی با هر ضربه <strong>+1 Credit</strong> می‌گیرید.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span>اطلاعات من کجا ذخیره می‌شود؟</span><span class="icon">+</span></div>
+    <div class="faq-answer"><p>تمامی اطلاعات به‌صورت <strong>محلی (Local)</strong> در مرورگر یا دستگاه شما ذخیره می‌شود.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span>چطور قهرمان جدید بگیرم؟</span><span class="icon">+</span></div>
+    <div class="faq-answer"><p>با کلیک روی دکمه <strong>⚡ HEROES</strong> می‌توانید قهرمانان را ببینید و با Combat Credits آن‌ها را باز کنید.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span>چگونه باگ خود را گزارش دهم؟</span><span class="icon">+</span></div>
+    <div class="faq-answer"><p>از طریق <strong>سایت پشتیبانی آنلاین</strong> می‌توانید مشکل خود را گزارش دهید.</p></div>
+  </div>
+</section>
+
+<!-- فوتر -->
+<footer>
+  <p>© 2025 MARVELS HC — تمامی حقوق محفوظ است.</p>
+  <p>ساخته شده با ❤️ توسط <span class="credit">Parham.KH</span></p>
+</footer>
+
+<!-- ============================================
+     ⭐ اسکریپت‌های آمار زنده ⭐
+     ============================================ -->
 <script>
-  /* ===== Build particles with fragment ===== */
-  (function(){
-    const container = document.getElementById('particles');
-    const colors = ['#ff7a3d', '#ff9a5c', '#a855f7', '#ffffff'];
-    const frag = document.createDocumentFragment();
+/* ===== 1. ساخت ذرات شناور ===== */
+(function createParticles() {
+  const container = document.getElementById('particles');
+  const count = 25;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (Math.random() * 3 + 2) + 'px';
+    p.style.opacity = Math.random() * 0.6 + 0.2;
+    container.appendChild(p);
+  }
+})();
 
-    for (let i = 0; i < 24; i++) {
-      const p = document.createElement('div');
-      const color = colors[i % colors.length];
-      p.className = 'p';
-      p.style.cssText =
-        `left:${Math.random()*100}%;` +
-        `background:${color};` +
-        `box-shadow:0 0 12px ${color};` +
-        `animation-duration:${10 + Math.random()*15}s;` +
-        `animation-delay:${Math.random()*15}s;` +
-        `width:${2 + Math.random()*3}px;` +
-        `height:${2 + Math.random()*3}px;`;
-      frag.appendChild(p);
+/* ===== 2. شمارنده انیمیشنی اعداد (Count-Up) ===== */
+function animateValue(el, start, end, duration, suffix = '') {
+  const startTime = performance.now();
+  function update(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    // easeOutCubic برای حرکت نرم
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(start + (end - start) * eased);
+    el.textContent = current + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = end + suffix;
+  }
+  requestAnimationFrame(update);
+}
+
+/* اجرای شمارنده‌ها هنگام دیده شدن کارت */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const card = entry.target;
+      const valueEl = card.querySelector('.stat-value[data-target]');
+      const barEl = card.querySelector('.stat-bar-fill[data-width]');
+
+      if (valueEl && !valueEl.dataset.done) {
+        const target = parseInt(valueEl.dataset.target);
+        const suffix = valueEl.dataset.suffix || '';
+        animateValue(valueEl, 0, target, 1500, suffix ? ' ' + suffix : '');
+        valueEl.dataset.done = 'true';
+      }
+
+      if (barEl && !barEl.dataset.done) {
+        setTimeout(() => {
+          barEl.style.width = barEl.dataset.width;
+        }, 300);
+        barEl.dataset.done = 'true';
+      }
     }
-    container.appendChild(frag);
-  })();
-
-  /* ===== Pause animations when tab is hidden ===== */
-  document.addEventListener('visibilitychange', () => {
-    document.body.style.animationPlayState =
-      document.hidden ? 'paused' : 'running';
   });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.stat-card').forEach(card => observer.observe(card));
+
+/* ===== 3. ⭐ آمار پویا: بازیکنان آنلاین ===== */
+const onlineEl = document.getElementById('onlinePlayers');
+const onlineBar = document.getElementById('onlineBar');
+
+// مقدار اولیه: 1000 نفر
+let onlineCount = 1000;
+
+function formatOnline(n) {
+  if (n >= 1000) return (n / 1000).toFixed(1).replace('.0', '') + 'K';
+  return n.toString();
+}
+
+function updateOnline() {
+  // تغییر تصادفی بین -80 تا +120
+  const change = Math.floor(Math.random() * 200) - 80;
+  onlineCount = Math.max(500, Math.min(2500, onlineCount + change));
+
+  // انیمیشن نرم عدد
+  const from = parseInt(onlineEl.textContent.replace(/[^0-9]/g, '')) || onlineCount;
+  animateValue(onlineEl, onlineCount - change, onlineCount, 800, '');
+
+  // به‌روزرسانی نمایش K
+  setTimeout(() => {
+    onlineEl.textContent = formatOnline(onlineCount);
+  }, 800);
+
+  // تغییر عرض نوار پیشرفت (بین 30% تا 95%)
+  const percent = Math.min(95, Math.max(30, (onlineCount / 2500) * 100));
+  onlineBar.style.width = percent + '%';
+
+  // تغییر رنگ نوار بر اساس ترافیک
+  if (onlineCount > 1800) {
+    onlineBar.style.background = 'linear-gradient(90deg, #00ff66, #00cc44)';
+  } else if (onlineCount > 1000) {
+    onlineBar.style.background = 'linear-gradient(90deg, #ffd700, #ff8c00)';
+  } else {
+    onlineBar.style.background = 'linear-gradient(90deg, #ff4444, #cc0000)';
+  }
+}
+
+// اولین به‌روزرسانی و سپس هر ۲ ثانیه
+updateOnline();
+setInterval(updateOnline, 2000);
+
+/* ===== 4. ⭐ آمار پویا: مجموع ضربات ===== */
+const strikesEl = document.getElementById('totalStrikes');
+const strikesBar = document.getElementById('strikesBar');
+
+// شروع از 1.2 میلیون ضربه
+let totalStrikes = 1245832;
+
+function formatStrikes(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(2) + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+  return n.toString();
+}
+
+// نمایش اولیه
+strikesEl.textContent = formatStrikes(totalStrikes);
+
+setInterval(() => {
+  // هر ثانیه تعداد ضربات تصادفی اضافه می‌شود
+  const added = Math.floor(Math.random() * 50) + 10;
+  totalStrikes += added;
+  strikesEl.textContent = formatStrikes(totalStrikes);
+
+  // افکت پالس روی عدد
+  strikesEl.style.transform = 'scale(1.1)';
+  strikesEl.style.transition = '0.15s';
+  setTimeout(() => {
+    strikesEl.style.transform = 'scale(1)';
+  }, 150);
+
+  // به‌روزرسانی نوار
+  const percent = 60 + (totalStrikes % 30);
+  strikesBar.style.width = percent + '%';
+}, 1000);
+
+/* ===== 5. آکاردئون FAQ ===== */
+document.querySelectorAll('.faq-question').forEach(item => {
+  item.addEventListener('click', () => {
+    const parent = item.parentElement;
+    const isActive = parent.classList.contains('active');
+
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+    if (!isActive) parent.classList.add('active');
+  });
+});
+
+/* ===== 6. اسکرول نرم ===== */
+document.querySelectorAll('nav a, .hero a').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
 </script>
+
 </body>
 </html>
