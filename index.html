@@ -128,6 +128,9 @@
     z-index: 10;
     text-align: center;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   /* ===== Hammer ===== */
@@ -154,7 +157,6 @@
     margin-bottom: 22px;
     display: inline-block;
 
-    /* gradient text */
     background-image: linear-gradient(
       90deg,
       #ff7a3d 0%,
@@ -179,8 +181,6 @@
     0%   { background-position: 0% 50% }
     100% { background-position: 300% 50% }
   }
-
-  /* fallback for browsers without background-clip support */
   @supports not (-webkit-background-clip: text){
     .title{ color: #ff7a3d; }
   }
@@ -189,7 +189,7 @@
   .dots{
     display: inline-flex;
     gap: 9px;
-    margin-bottom: 22px;
+    margin-bottom: 30px;
   }
   .dots i{
     width: 11px;
@@ -207,19 +207,42 @@
     30%{transform: translateY(-13px)}
   }
 
-  /* ===== Subtitle ===== */
-  .subtitle{
-    font-size: clamp(11px, 2vw, 14px);
-    color: #a99fc9;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeUp 1.4s ease .5s forwards;
+  /* ===== Play button ===== */
+  .play-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 34px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #fff;
+    background: linear-gradient(135deg, #ff7a3d, #ff9a5c);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow:
+      0 10px 30px rgba(255,122,61,.45),
+      inset 0 1px 0 rgba(255,255,255,.25);
+    transition: transform .2s, box-shadow .2s;
+    animation: btnPulse 2.4s ease-in-out infinite;
+    will-change: transform, box-shadow;
   }
-  @keyframes fadeUp{
-    from{opacity: 0; transform: translateY(10px)}
-    to{opacity: .85; transform: translateY(0)}
+  .play-btn:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+      0 16px 40px rgba(255,122,61,.6),
+      inset 0 1px 0 rgba(255,255,255,.3);
+    animation-play-state: paused;
   }
+  .play-btn:active{transform: translateY(-1px) scale(1)}
+  @keyframes btnPulse{
+    0%,100%{box-shadow: 0 10px 30px rgba(255,122,61,.45), inset 0 1px 0 rgba(255,255,255,.25)}
+    50%{box-shadow: 0 14px 40px rgba(255,122,61,.7), inset 0 1px 0 rgba(255,255,255,.3)}
+  }
+  .play-btn .arrow{font-size: 18px; transition: transform .2s}
+  .play-btn:hover .arrow{transform: translateX(-4px)}
 
   /* ===== Footer ===== */
   footer{
@@ -234,6 +257,10 @@
     letter-spacing: 1px;
     opacity: 0;
     animation: fadeUp 2s ease 1s forwards;
+  }
+  @keyframes fadeUp{
+    from{opacity: 0; transform: translateY(10px)}
+    to{opacity: .85; transform: translateY(0)}
   }
 
   /* ===== Scanline ===== */
@@ -277,14 +304,20 @@
     <div class="hammer">🛠️</div>
     <h1 class="title">BUILDING</h1>
     <div class="dots"><i></i><i></i><i></i></div>
-    <div class="subtitle">Something great is coming</div>
+
+    <!-- Play button -->
+    <a class="play-btn" href="https://pariorobber.github.io/Marvel-HC/" target="_blank" rel="noopener">
+      <span>🎮</span>
+      <span>PLAY NOW</span>
+      <span class="arrow">↖</span>
+    </a>
   </main>
 
   <!-- Footer -->
   <footer>© 1405</footer>
 
 <script>
-  /* ===== Build particles with fragment (faster DOM) ===== */
+  /* ===== Build particles with fragment ===== */
   (function(){
     const container = document.getElementById('particles');
     const colors = ['#ff7a3d', '#ff9a5c', '#a855f7', '#ffffff'];
@@ -307,7 +340,7 @@
     container.appendChild(frag);
   })();
 
-  /* ===== Pause animations when tab is hidden (battery save) ===== */
+  /* ===== Pause animations when tab is hidden ===== */
   document.addEventListener('visibilitychange', () => {
     document.body.style.animationPlayState =
       document.hidden ? 'paused' : 'running';
